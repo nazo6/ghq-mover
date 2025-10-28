@@ -1,0 +1,11 @@
+[package]
+name = "ghq-mover"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+walkdir = "2.5"
+git2 = "0.20.2"
+dirs = "6.0.0"
+anyhow = "1.0"
+git-url-parse = "0.6.0"
