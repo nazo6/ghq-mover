@@ -81,9 +81,13 @@ fn confirm(prompt: &str) -> Result<bool> {
 fn find_git_repos(base: &Path) -> Result<Vec<(PathBuf, PathBuf)>> {
     let mut repos = Vec::new();
 
-    let mut ghq_dir = std::env::home_dir().context("Failed to find home directory")?;
-    ghq_dir.push("ghq");
-    let ghq_dir = ghq_dir;
+    let ghq_dir = if let Ok(ghq_root) = std::env::var("GHQ_ROOT") {
+        PathBuf::from(ghq_root)
+    } else {
+        let mut ghq_dir = std::env::home_dir().context("Failed to find home directory")?;
+        ghq_dir.push("ghq");
+        ghq_dir
+    };
 
     let mut it = WalkDir::new(base)
         .into_iter()
